@@ -41,95 +41,58 @@ Estrutura:
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
-  <div class="main-container">
+    <div class="background-overlay"></div>
     <header class="main-header">
-        <div class="logo">
-          <i class="fas fa-brain"></i> Minhas Memórias
+        <div class="logo-container">
+            <span class="logo-text">RACA</span>
         </div>
         <nav class="main-nav">
-            <a href="#" id="login-btn">Login</a>
-            <a href="../admin/register/register.html" id="register-btn">Cadastro</a>
+            <a href="#">USM Metaverse</a>
+            <a href="#">NFT Market</a>
+            <a href="#">Governance</a>
+            <a href="#">RACA</a>
         </nav>
+        <div class="user-actions">
+            <button id="login-btn">Login</button>
+            <button id="register-btn">Cadastro</button>
+        </div>
     </header>
 
-    <div class="content-wrapper">
-        <div class="modern-title">
-            <span class="first-letter">U</span>nited<br>
-            <span class="first-letter">S</span>tates<br>
-            <span class="first-letter">o</span>f<span class="first-letter">M</span>ars
-        </div>
-        <div class="metaverse-text">
+    <main class="content-area">
+        <h1 class="main-title">
+            <span class="highlight">U</span>nited<br>
+            <span class="highlight">S</span>tates<br>
+            <span class="highlight">o</span>f <span class="highlight">M</span>ars
+        </h1>
+        <p class="main-subtitle">Metaverse</p>
+        <p class="main-description">
             The USM Metaverse is comprised of certain states with limited parcels for free purchase and ownership. Each state is rich in characteristics to be explored, where you may take a trip, make friends, create value, and build a real metaverse.
+        </p>
+    </main>
+
+    <div id="login-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="Seu e-mail">
+            <input type="password" id="loginPassword" placeholder="Sua senha">
+            <button id="login-action-btn">Conectar</button>
+             <p class="form-footer">Não tem uma conta? <a href="#" id="show-register-modal">Crie uma agora</a></p>
         </div>
     </div>
-</div>
 
-<div id="loginModal" class="modal-backdrop" style="display:none;">
-    <div class="modal-content-login">
-        <div class="auth-container">
-          <h2>
-            <i class="fas fa-sign-in-alt"></i>
-            Navegar
-          </h2>
-          <!-- Inputs para e-mail e senha -->
-          <input type="email" id="loginEmail" placeholder="📧 Seu e-mail">
-          <input type="password" id="loginPassword" placeholder="🔒 Sua senha">
-
-          <!-- Botão principal de login -->
-          <button onclick="login()">
-            <i class="fas fa-arrow-right"></i>
-            Conectar
-          </button>
-
-          <!-- Botão de chamada para ação (CTA) para o plano Premium -->
-           <button type="button" class="auth-button premium-cta-button" onclick="openPremiumUpgradeModal()">
-              <i class="fas fa-star"></i> Assinar
-            </button>
-
-          <!-- Mensagem promocional e link para a página de registro -->
-          <p class="promo-message">Experimente o app com 20 memórias grátis! Após o limite, a versão premium por R$4,99/mês oferece memórias ilimitadas.</p>
-          <p>Não tem uma conta? <a href="../admin/register/register.html">Crie uma agora</a></p>
+    <div id="register-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Cadastro</h2>
+            <input type="email" id="registerEmail" placeholder="Seu e-mail">
+            <input type="password" id="registerPassword" placeholder="Crie uma senha">
+            <input type="password" id="confirmPassword" placeholder="Confirme a senha">
+            <button id="register-action-btn">Criar Conta</button>
+            <p class="form-footer">Já tem uma conta? <a href="#" id="show-login-modal">Faça o login</a></p>
         </div>
     </div>
-</div>
 
-  <!-- ========================================
-       MODAL DE UPGRADE PREMIUM
-  ======================================== -->
-
-  <!-- ========================================
-       MODAL DE UPGRADE PREMIUM
-  ======================================== -->
-  <!-- Este modal é uma cópia do que existe no index.html.
-       SUGESTÃO: Para evitar duplicação, o ideal seria criar um "template" de modal
-       que pudesse ser injetado dinamicamente via JavaScript em qualquer página. -->
-  <div id="premiumUpgradeModalOverlay" class="modal-overlay" style="display: none;">
-    <div class="modal-container premium-upgrade-modal-container">
-      <div class="modal-header">
-        <span><i class="fas fa-rocket"></i> Desbloqueie Memórias Ilimitadas!</span>
-        <button class="modal-close-btn" onclick="closePremiumUpgradeModal()"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="modal-content premium-upgrade-modal-content">
-        <i class="fas fa-gem" style="font-size: 3.5em; color: #8b4513; text-align: center; display: block; margin-bottom: 20px;"></i>
-        <h3 style="text-align:center; font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:10px;">Você atingiu o limite de 20 memórias gratuitas!</h3>
-        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:15px; text-align:center; line-height:1.4;">
-          Com o plano Premium, você pode registrar quantas memórias quiser, sem limites! Organize todas as suas ideias, projetos e lembranças importantes.
-        </p>
-        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:20px; text-align:center; font-size:1.1rem; font-weight:bold;">
-          Apenas R$4,99 por mês!
-        </p>
-        <div class="modal-button-group">
-          <button onclick="handlePremiumPurchase()" class="add-btn premium-purchase-btn"><i class="fas fa-credit-card"></i> Quero ser Premium!</button>
-          <button onclick="closePremiumUpgradeModal()" class="cancel-btn">Fechar</button>
-        </div>
-         <p id="premiumPurchaseInfo" style="font-family: 'Courier Prime', monospace; color: #8b4513; margin-top:15px; text-align:center; font-size:0.8rem; display:none;">
-          A integração com o sistema de pagamento estará disponível em breve!
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Script com a lógica da página de login -->
-  <script src="login.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

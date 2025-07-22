@@ -30,13 +30,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f1e8;
+    /* Fundo com gradientes radiais para uma textura sutil. */
+    background-image: radial-gradient(circle at 20% 50%, rgba(120,119,108,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(120,119,108,0.3) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(120,119,108,0.2) 0%, transparent 50%);
     color: #333;
     line-height: normal;
-    min-height: 100vh;
+    min-height: 100vh; /* Garante que o body ocupe pelo menos a altura total da tela. */
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Previne a rolagem horizontal na página inteira. */
 }
 
 
@@ -69,25 +70,25 @@ body {
 /* --- 3. Cabeçalho (Header) e Barra Superior (Top Bar) --- */
 
 header {
-    position: fixed;
+    position: fixed; /* Mantém o cabeçalho no topo da tela durante a rolagem. */
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1001;
+    z-index: 1001; /* Garante que o cabeçalho fique acima do conteúdo da página. */
     padding: 0;
-    background: #1a1a1a;
+    background: #8B4513; /* Cor de madeira escura, tema principal. */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     border-bottom: none;
 }
 
 .top-bar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Alinha itens nas extremidades. */
+    align-items: center; /* Alinha itens verticalmente ao centro. */
     padding: 10px 20px;
-    background-color: #1a1a1a;
+    background-color: #8B4513;
     color: #f4f1e8;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #654321; /* Linha sutil para separar do resto do header. */
 }
 
 .logo-area {
@@ -100,7 +101,7 @@ header {
     font-size: 1.5rem;
     font-weight: 700;
     font-family: 'Courier Prime', monospace;
-    color: #ff8c00;
+    color: #f4f1e8;
 }
 
 #appName i {
