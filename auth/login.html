@@ -41,46 +41,61 @@ Estrutura:
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
-  <!-- Barra Superior - Visível apenas em Desktop -->
-  <div class="desktop-top-bar">
-    <div class="logo">
-      <i class="fas fa-brain"></i> Minhas Memórias
+  <div class="main-container">
+    <header class="main-header">
+        <div class="logo">
+          <i class="fas fa-brain"></i> Minhas Memórias
+        </div>
+        <nav class="main-nav">
+            <a href="#" id="login-btn">Login</a>
+            <a href="../admin/register/register.html" id="register-btn">Cadastro</a>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="modern-title">
+            <span class="first-letter">U</span>nited<br>
+            <span class="first-letter">S</span>tates<br>
+            <span class="first-letter">o</span>f<span class="first-letter">M</span>ars
+        </div>
+        <div class="metaverse-text">
+            The USM Metaverse is comprised of certain states with limited parcels for free purchase and ownership. Each state is rich in characteristics to be explored, where you may take a trip, make friends, create value, and build a real metaverse.
+        </div>
     </div>
-    <div class="center-text">
-      Bem-vindo de volta, explorador de ideias!
+</div>
+
+<div id="loginModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-content-login">
+        <div class="auth-container">
+          <h2>
+            <i class="fas fa-sign-in-alt"></i>
+            Navegar
+          </h2>
+          <!-- Inputs para e-mail e senha -->
+          <input type="email" id="loginEmail" placeholder="📧 Seu e-mail">
+          <input type="password" id="loginPassword" placeholder="🔒 Sua senha">
+
+          <!-- Botão principal de login -->
+          <button onclick="login()">
+            <i class="fas fa-arrow-right"></i>
+            Conectar
+          </button>
+
+          <!-- Botão de chamada para ação (CTA) para o plano Premium -->
+           <button type="button" class="auth-button premium-cta-button" onclick="openPremiumUpgradeModal()">
+              <i class="fas fa-star"></i> Assinar
+            </button>
+
+          <!-- Mensagem promocional e link para a página de registro -->
+          <p class="promo-message">Experimente o app com 20 memórias grátis! Após o limite, a versão premium por R$4,99/mês oferece memórias ilimitadas.</p>
+          <p>Não tem uma conta? <a href="../admin/register/register.html">Crie uma agora</a></p>
+        </div>
     </div>
-    <div></div> <!-- Elemento espaçador para ajudar na centralização com flexbox. -->
-  </div>
+</div>
 
   <!-- ========================================
-       TELA DE LOGIN
+       MODAL DE UPGRADE PREMIUM
   ======================================== -->
-  <div id="loginScreen" class="screen active">
-    <div class="auth-container">
-      <h2>
-        <i class="fas fa-sign-in-alt"></i>
-        Navegar
-      </h2>
-      <!-- Inputs para e-mail e senha -->
-      <input type="email" id="loginEmail" placeholder="📧 Seu e-mail">
-      <input type="password" id="loginPassword" placeholder="🔒 Sua senha">
-
-      <!-- Botão principal de login -->
-      <button onclick="login()">
-        <i class="fas fa-arrow-right"></i>
-        Conectar
-      </button>
-
-      <!-- Botão de chamada para ação (CTA) para o plano Premium -->
-       <button type="button" class="auth-button premium-cta-button" onclick="openPremiumUpgradeModal()">
-          <i class="fas fa-star"></i> Assinar
-        </button>
-
-      <!-- Mensagem promocional e link para a página de registro -->
-      <p class="promo-message">Experimente o app com 20 memórias grátis! Após o limite, a versão premium por R$4,99/mês oferece memórias ilimitadas.</p>
-      <p>Não tem uma conta? <a href="../admin/register/register.html">Crie uma agora</a></p>
-    </div>
-  </div>
 
   <!-- ========================================
        MODAL DE UPGRADE PREMIUM

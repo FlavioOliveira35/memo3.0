@@ -1,16 +1,18 @@
-// ===================================================================================
-// Lógica da Página de Login
-// ===================================================================================
-// Este script gerencia todas as interações na página de login (login.html).
-// Ele é autônomo, o que significa que contém sua própria inicialização do Firebase
-// e funções utilitárias para não depender de outros scripts da aplicação principal.
-//
-// SUGESTÃO DE REATORAÇÃO:
-// A duplicação da `firebaseConfig` e de funções como `mapFirebaseAuthError`
-// aumenta a chance de inconsistências. O ideal seria ter um único `firebase-config.js`
-// e um `utils.js` que pudessem ser importados como módulos (`<script type="module">`)
-// tanto em `index.html` quanto em `login.html`, centralizando a lógica comum.
-// ===================================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.getElementById('login-btn');
+    const loginModal = document.getElementById('loginModal');
+
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'flex';
+    });
+
+    loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
+});
 
 
 // -----------------------------------------------------------------------------------
