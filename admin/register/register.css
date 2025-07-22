@@ -1,0 +1,201 @@
+/* ===================================================================================
+ * ARQUIVO DE ESTILOS DA PÁGINA DE REGISTRO (register.css)
+ * ===================================================================================
+ * Esta folha de estilos é dedicada à página de registro.
+ * Ela herda muitos estilos da página de login para manter a consistência visual
+ * e adiciona ou ajusta estilos conforme necessário para o formulário de registro.
+ *
+ * NOTA: A grande quantidade de código duplicado de `login.css` e `modal.css`
+ * reforça a necessidade de um arquivo de estilos "comum" ou "base" para
+ * elementos compartilhados como `body`, `.auth-container`, e `.modal-overlay`.
+ * =================================================================================== */
+
+
+/* --- 1. Reset e Configurações Globais (Duplicado) --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 108, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(120, 119, 108, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 119, 108, 0.2) 0%, transparent 50%);
+  color: #333;
+  line-height: normal;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+
+/* --- 2. Layout de Tela e Contêiner de Autenticação (Duplicado) --- */
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen.active {
+  display: flex;
+}
+
+.auth-container {
+  background: #f9f6f0;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border: 3px solid #8b4513;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.auth-container h2 {
+  margin-bottom: 30px;
+  color: #2c2416;
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+
+/* --- 3. Estilos de Formulário (Inputs, Botões) --- */
+.auth-container input {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border: 2px solid #d2b48c;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fff;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  color: #2c2416;
+}
+
+/* Estilo específico para o campo de data para customização. */
+.auth-container input[type="date"] {
+    position: relative;
+}
+
+/* Remove o ícone de calendário padrão em navegadores WebKit para permitir estilização customizada se desejado. */
+.auth-container input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.auth-container input:focus {
+  outline: none;
+  border-color: #8b4513;
+  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+  transform: translateY(0);
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 15px;
+  background: #8b4513;
+  color: #f4f1e8;
+  border: 2px solid #654321;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  text-transform: uppercase;
+}
+
+.auth-container button:hover {
+  background: #654321;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.auth-container button.premium-cta-button {
+  background: #b08d57;
+  color: white;
+  margin-top: 15px;
+  border: 2px solid #9a7947;
+}
+
+.auth-container button.premium-cta-button:hover {
+  background: #9a7947;
+  border-color: #7c6039;
+}
+
+.auth-container p {
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #2c2416;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.auth-container a {
+  color: #654321;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.auth-container a:hover {
+  color: #8b4513;
+  text-decoration: underline;
+}
+
+/* Spinner de carregamento. */
+.loading {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.3); border-radius: 50%;
+  border-top-color: #fff; animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* --- 4. Estilos de Modal (Duplicado) --- */
+.modal-overlay { /* ... */ }
+.modal-container { /* ... */ }
+/* ... (restante dos estilos de modal duplicados) ... */
+
+
+/* --- 5. Media Queries para Responsividade (Duplicado) --- */
+@media (max-width: 768px) {
+  .auth-container { margin: 5vh 20px; padding: 30px 20px; }
+  .modal-container { width: 95%; margin: 10px; }
+  .modal-content { padding: 20px; }
+  .modal-button-group { flex-direction: column; gap: 8px; }
+  .modal-button-group button { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .auth-container { margin: 5vh 15px; padding: 25px 15px; border-radius: 15px; }
+  .auth-container h2 { font-size: 1.6rem; }
+  .modal-container { width: 100%; margin: 5px; max-height: 100vh; }
+  .modal-content { padding: 15px; }
+}
+
+/* Garante que elementos de UI mobile da app principal não apareçam aqui. */
+.mobile-category-icon-btn {
+    display: none !important;
+}

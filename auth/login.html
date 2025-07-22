@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+===================================================================================
+PÁGINA DE LOGIN
+===================================================================================
+Este arquivo define a estrutura da página de login. É uma página autônoma,
+o que significa que ela importa suas próprias dependências de CSS e JS para
+funcionar sem depender da estrutura principal do `index.html`.
+
+Estrutura:
+- <head>: Importa o SDK do Firebase, Font Awesome, Google Fonts e a folha de
+           estilos específica `login.css`.
+- <body>: Contém a estrutura visual da página.
+  - .desktop-top-bar: Uma barra superior que só é visível em telas maiores.
+  - #loginScreen: O contêiner principal que envolve o formulário de login.
+  - .auth-container: O card central que contém os inputs e botões.
+  - #premiumUpgradeModalOverlay: Uma cópia do modal de upgrade premium, para
+    que possa ser exibido diretamente desta página se necessário.
+  - <script src="login.js">: Importa o JavaScript que controla a lógica desta página.
+===================================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Minhas Memórias</title>
+
+  <!-- === DEPENDÊNCIAS DE TERCEIROS === -->
+  <!-- Firebase SDK (versão de compatibilidade para usar a sintaxe legada) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts para tipografia com estilo retro -->
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Typewriter&display=swap" rel="stylesheet">
+
+  <!-- Folha de estilos específica para a página de login -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <!-- Barra Superior - Visível apenas em Desktop -->
+  <div class="desktop-top-bar">
+    <div class="logo">
+      <i class="fas fa-brain"></i> Minhas Memórias
+    </div>
+    <div class="center-text">
+      Bem-vindo de volta, explorador de ideias!
+    </div>
+    <div></div> <!-- Elemento espaçador para ajudar na centralização com flexbox. -->
+  </div>
+
+  <!-- ========================================
+       TELA DE LOGIN
+  ======================================== -->
+  <div id="loginScreen" class="screen active">
+    <div class="auth-container">
+      <h2>
+        <i class="fas fa-sign-in-alt"></i>
+        Navegar
+      </h2>
+      <!-- Inputs para e-mail e senha -->
+      <input type="email" id="loginEmail" placeholder="📧 Seu e-mail">
+      <input type="password" id="loginPassword" placeholder="🔒 Sua senha">
+
+      <!-- Botão principal de login -->
+      <button onclick="login()">
+        <i class="fas fa-arrow-right"></i>
+        Conectar
+      </button>
+
+      <!-- Botão de chamada para ação (CTA) para o plano Premium -->
+       <button type="button" class="auth-button premium-cta-button" onclick="openPremiumUpgradeModal()">
+          <i class="fas fa-star"></i> Assinar
+        </button>
+
+      <!-- Mensagem promocional e link para a página de registro -->
+      <p class="promo-message">Experimente o app com 20 memórias grátis! Após o limite, a versão premium por R$4,99/mês oferece memórias ilimitadas.</p>
+      <p>Não tem uma conta? <a href="../admin/register/register.html">Crie uma agora</a></p>
+    </div>
+  </div>
+
+  <!-- ========================================
+       MODAL DE UPGRADE PREMIUM
+  ======================================== -->
+  <!-- Este modal é uma cópia do que existe no index.html.
+       SUGESTÃO: Para evitar duplicação, o ideal seria criar um "template" de modal
+       que pudesse ser injetado dinamicamente via JavaScript em qualquer página. -->
+  <div id="premiumUpgradeModalOverlay" class="modal-overlay" style="display: none;">
+    <div class="modal-container premium-upgrade-modal-container">
+      <div class="modal-header">
+        <span><i class="fas fa-rocket"></i> Desbloqueie Memórias Ilimitadas!</span>
+        <button class="modal-close-btn" onclick="closePremiumUpgradeModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-content premium-upgrade-modal-content">
+        <i class="fas fa-gem" style="font-size: 3.5em; color: #8b4513; text-align: center; display: block; margin-bottom: 20px;"></i>
+        <h3 style="text-align:center; font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:10px;">Você atingiu o limite de 20 memórias gratuitas!</h3>
+        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:15px; text-align:center; line-height:1.4;">
+          Com o plano Premium, você pode registrar quantas memórias quiser, sem limites! Organize todas as suas ideias, projetos e lembranças importantes.
+        </p>
+        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:20px; text-align:center; font-size:1.1rem; font-weight:bold;">
+          Apenas R$4,99 por mês!
+        </p>
+        <div class="modal-button-group">
+          <button onclick="handlePremiumPurchase()" class="add-btn premium-purchase-btn"><i class="fas fa-credit-card"></i> Quero ser Premium!</button>
+          <button onclick="closePremiumUpgradeModal()" class="cancel-btn">Fechar</button>
+        </div>
+         <p id="premiumPurchaseInfo" style="font-family: 'Courier Prime', monospace; color: #8b4513; margin-top:15px; text-align:center; font-size:0.8rem; display:none;">
+          A integração com o sistema de pagamento estará disponível em breve!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script com a lógica da página de login -->
+  <script src="login.js"></script>
+</body>
+</html>

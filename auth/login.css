@@ -1,0 +1,308 @@
+/* ===================================================================================
+ * ARQUIVO DE ESTILOS DA PÁGINA DE LOGIN (login.css)
+ * ===================================================================================
+ * Esta folha de estilos é dedicada exclusivamente à página de login.
+ * Ela define a aparência do formulário, fundo, e outros elementos visuais,
+ * incluindo uma estética retrô/vintage e ajustes para responsividade.
+ *
+ * Seções:
+ * 1. Reset e Configurações Globais
+ * 2. Estilos da Barra Superior (Desktop)
+ * 3. Layout de Tela e Contêiner de Autenticação
+ * 4. Estilos de Formulário (Inputs, Botões)
+ * 5. Estilos de Modal (Copiados para autonomia)
+ * 6. Media Queries para Responsividade
+ * =================================================================================== */
+
+
+/* --- 1. Reset e Configurações Globais --- */
+/* NOTA: Estes estilos são duplicados de `main.css`. O ideal seria ter um arquivo
+   de estilos "comum" ou "base" importado em todas as páginas. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Fundo texturizado sutil para mobile. */
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 108, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(120, 119, 108, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 119, 108, 0.2) 0%, transparent 50%);
+  color: #333;
+  line-height: normal;
+  min-height: 100vh;
+  display: flex; /* Habilita flexbox para centralizar o contêiner de login. */
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  /* Imagem de fundo para desktop, sobrepõe o gradiente. */
+  background-image: url('https://source.unsplash.com/random/1920x1080?technology,retro,desk');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* --- 2. Estilos da Barra Superior (Desktop) --- */
+.desktop-top-bar {
+  display: none; /* Oculto por padrão, ativado via media query. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fundo preto translúcido. */
+  padding: 15px 30px;
+  z-index: 100;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Ativa a barra superior em telas maiores que 768px. */
+@media (min-width: 769px) {
+  .desktop-top-bar {
+    display: flex;
+  }
+}
+
+.desktop-top-bar .logo {
+  font-family: 'Courier Prime', monospace;
+  font-size: 1.8rem;
+  color: #f4f1e8; /* Cor de papel vintage. */
+  font-weight: bold;
+}
+.desktop-top-bar .logo i {
+  margin-right: 10px;
+  color: #d2b48c; /* Cor de detalhe "ouro velho". */
+}
+
+.desktop-top-bar .center-text {
+  flex-grow: 1;
+  text-align: center;
+  font-family: 'Typewriter', monospace;
+  font-size: 1.2rem;
+  color: #f0eada;
+  letter-spacing: 1px;
+}
+
+
+/* --- 3. Layout de Tela e Contêiner de Autenticação --- */
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+}
+/* Adiciona padding no topo em desktop para não ficar atrás da barra fixa. */
+@media (min-width: 769px) {
+  .screen {
+    padding-top: 80px; /* Altura aproximada do .desktop-top-bar. */
+  }
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* O card principal que contém o formulário. */
+.auth-container {
+  background: #f9f6f0;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border: 3px solid #8b4513;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  z-index: 1;
+}
+
+/* Estilos específicos para o contêiner em telas de desktop, para contrastar com a imagem de fundo. */
+@media (min-width: 769px) {
+  .auth-container {
+    background: rgba(249, 246, 240, 0.1); /* Fundo muito transparente. */
+    border: 2px solid rgba(210, 180, 140, 0.7);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+  }
+  /* Muda a cor do texto para claro para ser legível no fundo escuro. */
+  .auth-container h2,
+  .auth-container p,
+  .auth-container a,
+  .auth-container input[type="email"]::placeholder,
+  .auth-container input[type="password"]::placeholder {
+    color: #f0eada;
+  }
+  .auth-container input[type="email"],
+  .auth-container input[type="password"] {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(210, 180, 140, 0.5);
+    color: #f4f1e8;
+  }
+  .auth-container input[type="email"]:focus,
+  .auth-container input[type="password"]:focus {
+    border-color: #d2b48c;
+    box-shadow: 0 0 0 2px rgba(210, 180, 140, 0.3);
+  }
+  .auth-container a:hover {
+    color: #fff;
+  }
+  .auth-container .promo-message {
+    background-color: rgba(240, 230, 208, 0.2);
+    border-color: rgba(139, 69, 19, 0.5);
+    color: #f0eada;
+  }
+}
+
+
+/* --- 4. Estilos de Formulário (Inputs, Botões) --- */
+.auth-container h2 {
+  margin-bottom: 30px;
+  color: #2c2416;
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border: 2px solid #d2b48c;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fff;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  color: #2c2416;
+}
+
+.auth-container input[type="email"]:focus,
+.auth-container input[type="password"]:focus {
+  outline: none;
+  border-color: #8b4513;
+  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+  transform: translateY(0);
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 15px;
+  background: #8b4513;
+  color: #f4f1e8;
+  border: 2px solid #654321;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  text-transform: uppercase;
+}
+
+.auth-container button:hover {
+  background: #654321;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+/* Botão de chamada para ação (CTA) para o plano premium. */
+.auth-container button.premium-cta-button {
+  background: #b08d57;
+  color: white;
+  margin-top: 15px;
+  border: 2px solid #9a7947;
+}
+
+.auth-container button.premium-cta-button:hover {
+  background: #9a7947;
+  border-color: #7c6039;
+}
+
+.auth-container p {
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #2c2416;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+/* Mensagem de promoção para usuários free. */
+.auth-container .promo-message {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  color: #2c2416;
+  background-color: #f0e6d0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border: 1px dashed #8b4513;
+  line-height: 1.4;
+}
+
+.auth-container a {
+  color: #654321;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+.auth-container a:hover {
+  color: #8b4513;
+  text-decoration: underline;
+}
+
+/* Spinner de carregamento para botões. */
+.loading {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.3); border-radius: 50%;
+  border-top-color: #fff; animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* --- 5. Estilos de Modal (Copiados para autonomia) --- */
+/* NOTA: Estes são estilos genéricos de modal, também duplicados de `modal.css`. */
+.modal-overlay { /* ... */ }
+.modal-container { /* ... */ }
+/* ... (restante dos estilos do modal) ... */
+
+
+/* --- 6. Media Queries para Responsividade --- */
+@media (max-width: 768px) {
+  .auth-container { margin: 5vh 20px; padding: 30px 20px; }
+  .modal-container { width: 95%; margin: 10px; }
+  .modal-content { padding: 20px; }
+  .modal-button-group { flex-direction: column; gap: 8px; }
+  .modal-button-group button { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .auth-container { margin: 5vh 15px; padding: 25px 15px; border-radius: 15px; }
+  .auth-container h2 { font-size: 1.6rem; }
+  .modal-container { width: 100%; margin: 5px; max-height: 100vh; }
+  .modal-content { padding: 15px; }
+}
+
+/* Regra para garantir que elementos de UI móvel não apareçam acidentalmente aqui. */
+.mobile-category-icon-btn {
+    display: none !important;
+}
