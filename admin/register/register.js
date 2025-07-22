@@ -30,6 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const closeBtn = registerModal.querySelector('.close-btn');
+    if(closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            // Redireciona para a página de login ao fechar, ou pode simplesmente ocultar o modal
+            window.location.href = '../../auth/login.html';
+        });
+    }
+
     // --- Lógica do Modal Premium (Mantida) ---
     const premiumUpgradeModalOverlay = document.getElementById('premiumUpgradeModalOverlay');
     const premiumPurchaseInfo = document.getElementById('premiumPurchaseInfo');
