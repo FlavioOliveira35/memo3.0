@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = registerModal.querySelector('.close-btn');
     if(closeBtn) {
         closeBtn.addEventListener('click', () => {
-            // Redireciona para a página de login ao fechar, ou pode simplesmente ocultar o modal
-            window.location.href = '../../auth/login.html';
+            registerModal.style.display = 'none';
+            // Opcional: redirecionar ou não. Por agora, apenas fecha.
+            // window.location.href = '../../auth/login.html';
         });
     }
 
@@ -49,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openPremiumUpgradeModal() {
       if (premiumUpgradeModalOverlay) {
+        // Esconde o modal de registro antes de mostrar o premium
+        const registerModal = document.getElementById('register-modal');
+        if (registerModal) {
+            registerModal.style.display = 'none';
+        }
         premiumUpgradeModalOverlay.style.display = 'flex';
         if (premiumPurchaseInfo) premiumPurchaseInfo.style.display = 'none';
       }
