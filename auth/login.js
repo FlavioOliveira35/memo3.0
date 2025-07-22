@@ -1,3 +1,12 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyCAjJGwKaYi6cJNrmGcdnKgO-jHYGivv0E", authDomain: "smemoria-bfaed.firebaseapp.com",
+    projectId: "smemoria-bfaed", storageBucket: "smemoria-bfaed.firebasestorage.app",
+    messagingSenderId: "728874899156", appId: "1:728874899156:web:81744aa120a926ff5ccd41"
+};
+
+// Inicializa a aplicação Firebase com as configurações fornecidas.
+firebase.initializeApp(firebaseConfig);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Modal elements
     const loginModal = document.getElementById('login-modal');
