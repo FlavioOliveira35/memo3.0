@@ -242,6 +242,7 @@ body {
 /* Modal de Upgrade Premium (para consistência) */
 .modal-overlay {
     background-color: rgba(0,0,0,0.7);
+    z-index: 200; /* Garante que fique sobre o modal de registro */
 }
 
 .premium-upgrade-modal-container {
