@@ -150,12 +150,11 @@ body {
 
 .modal-content {
     background-color: #1a1a1a;
-    padding: 30px;
+    padding: 20px;
     border: 1px solid #333;
     border-radius: 10px;
     width: 90%;
-    max-width: 400px;
-    text-align: center;
+    max-width: 450px;
     position: relative;
 }
 
@@ -174,46 +173,70 @@ body {
     color: #fff;
 }
 
-.modal-content h2 {
-    margin-bottom: 25px;
+/* Styles for the original auth-container inside the modal */
+.modal .auth-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    color: #fff;
+}
+
+.modal .auth-container h2 {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
 }
 
-.modal-content input {
-    width: calc(100% - 40px);
-    padding: 12px 20px;
-    margin-bottom: 20px;
+.modal .auth-container input[type="email"],
+.modal .auth-container input[type="password"] {
+    background: #222;
     border: 1px solid #444;
-    border-radius: 5px;
-    background-color: #222;
     color: #fff;
-    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.modal-content button {
-    width: 100%;
-    padding: 12px;
+.modal .auth-container button {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: none;
+}
+
+.modal .auth-container #login-action-btn {
     background-color: #ff8c00;
-    color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.modal-content button:hover {
+.modal .auth-container #login-action-btn:hover {
     background-color: #e67e00;
 }
 
-.form-footer {
-    margin-top: 20px;
-    font-size: 0.9rem;
+.modal .auth-container .premium-cta-button {
+    background: none;
+    border: 1px solid #ff8c00;
+    color: #ff8c00;
 }
 
-.form-footer a {
+.modal .auth-container .premium-cta-button:hover {
+    background-color: #ff8c00;
+    color: #fff;
+}
+
+.modal .auth-container .promo-message {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed #ff8c00;
+    color: #eee;
+}
+
+.modal .auth-container p {
+    color: #aaa;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.modal .auth-container a {
     color: #ff8c00;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#register-btn-link {
     text-decoration: none;
-    font-weight: bold;
 }
