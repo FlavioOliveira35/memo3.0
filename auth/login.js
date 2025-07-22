@@ -1,122 +1,147 @@
+// Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCAjJGwKaYi6cJNrmGcdnKgO-jHYGivv0E", authDomain: "smemoria-bfaed.firebaseapp.com",
-    projectId: "smemoria-bfaed", storageBucket: "smemoria-bfaed.firebasestorage.app",
-    messagingSenderId: "728874899156", appId: "1:728874899156:web:81744aa120a926ff5ccd41"
+    apiKey: "AIzaSyCAjJGwKaYi6cJNrmGcdnKgO-jHYGivv0E",
+    authDomain: "smemoria-bfaed.firebaseapp.com",
+    projectId: "smemoria-bfaed",
+    storageBucket: "smemoria-bfaed.firebasestorage.app",
+    messagingSenderId: "728874899156",
+    appId: "1:728874899156:web:81744aa120a926ff5ccd41"
 };
 
-// Inicializa a aplicação Firebase com as configurações fornecidas.
-firebase.initializeApp(firebaseConfig);
+// Inicialização do Firebase
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Modal elements
-    const loginModal = document.getElementById('login-modal');
-    const registerModal = document.getElementById('register-modal');
-
-    // Buttons to open modals
-    const loginBtn = document.getElementById('login-btn');
-    const registerBtn = document.getElementById('register-btn');
-
-    // Close buttons
-    const closeBtns = document.querySelectorAll('.close-btn');
-
-    // Links to switch between modals
-    const showRegisterModalLink = document.getElementById('show-register-modal');
-    const showLoginModalLink = document.getElementById('show-login-modal');
-
-    // Action buttons in modals
-    const loginActionBtn = document.getElementById('login-action-btn');
-    const registerActionBtn = document.getElementById('register-action-btn');
-
     // --- Modal Control ---
+    const loginModal = document.getElementById('login-modal');
+    const loginBtn = document.getElementById('login-btn');
+    const closeBtn = loginModal.querySelector('.close-btn');
+    const loginActionBtn = document.getElementById('login-action-btn');
 
     loginBtn.addEventListener('click', () => {
         loginModal.style.display = 'flex';
     });
 
-    registerBtn.addEventListener('click', () => {
-        registerModal.style.display = 'flex';
-    });
-
-    closeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'none';
-        });
+    closeBtn.addEventListener('click', () => {
+        loginModal.style.display = 'none';
     });
 
     window.addEventListener('click', (event) => {
         if (event.target == loginModal) {
             loginModal.style.display = 'none';
         }
-        if (event.target == registerModal) {
-            registerModal.style.display = 'none';
-        }
-    });
-
-    showRegisterModalLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'none';
-        registerModal.style.display = 'flex';
-    });
-
-    showLoginModalLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerModal.style.display = 'none';
-        loginModal.style.display = 'flex';
     });
 
     // --- Firebase Actions ---
+    if (loginActionBtn) {
+        loginActionBtn.addEventListener('click', login);
+    }
+});
 
-    loginActionBtn.addEventListener('click', () => {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
+// Seleção dos elementos do DOM necessários para a página de login.
+const loginEmailInput = document.getElementById('loginEmail');
+const loginPasswordInput = document.getElementById('loginPassword');
+const loginButton = document.getElementById('login-action-btn'); // Corrigido para o novo botão
 
-        if (!email || !password) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
+// Lógica do Modal de Upgrade Premium
+const premiumUpgradeModalOverlay = document.getElementById('premiumUpgradeModalOverlay');
+const premiumPurchaseInfo = document.getElementById('premiumPurchaseInfo');
 
-        const originalContent = loginActionBtn.innerHTML;
-        loginActionBtn.innerHTML = 'Conectando...';
-        loginActionBtn.disabled = true;
+function openPremiumUpgradeModal() {
+    if (premiumUpgradeModalOverlay) {
+        premiumUpgradeModalOverlay.style.display = 'flex';
+        if (premiumPurchaseInfo) premiumPurchaseInfo.style.display = 'none';
+    }
+}
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                window.location.href = '../index.html';
-            })
-            .catch((error) => {
-                alert('Erro de login: ' + error.message);
-                loginActionBtn.innerHTML = originalContent;
-                loginActionBtn.disabled = false;
-            });
-    });
+function closePremiumUpgradeModal() {
+    if (premiumUpgradeModalOverlay) {
+        premiumUpgradeModalOverlay.style.display = 'none';
+    }
+}
 
-    registerActionBtn.addEventListener('click', () => {
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+// Listeners para fechar o modal.
+if (premiumUpgradeModalOverlay) {
+    const closeBtn = premiumUpgradeModalOverlay.querySelector('.modal-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closePremiumUpgradeModal);
+    }
+    const cancelBtnGroup = premiumUpgradeModalOverlay.querySelector('.modal-button-group .cancel-btn');
+    if (cancelBtnGroup) {
+        cancelBtnGroup.addEventListener('click', closePremiumUpgradeModal);
+    }
+}
 
-        if (password !== confirmPassword) {
-            alert("As senhas não coincidem.");
-            return;
-        }
+// Manipulador para o clique no botão de compra do plano premium.
+function handlePremiumPurchase() {
+    if (premiumPurchaseInfo) {
+        premiumPurchaseInfo.textContent = 'Agradecemos o seu interesse! A funcionalidade de pagamento será implementada em breve.';
+        premiumPurchaseInfo.style.display = 'block';
+    }
+}
 
-        const originalContent = registerActionBtn.innerHTML;
-        registerActionBtn.innerHTML = 'Criando...';
-        registerActionBtn.disabled = true;
+// Função de login original, agora chamada pelo botão no modal
+function login() {
+    const email = loginEmailInput.value.trim();
+    const password = loginPasswordInput.value;
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                alert('Conta criada com sucesso! Faça o login.');
-                registerModal.style.display = 'none';
-                loginModal.style.display = 'flex';
-            })
-            .catch((error) => {
-                alert('Erro de cadastro: ' + error.message);
-            })
-            .finally(() => {
-                registerActionBtn.innerHTML = originalContent;
-                registerActionBtn.disabled = false;
-            });
-    });
+    if (!email || !password) {
+        alert("Por favor, preencha e-mail e senha.");
+        return;
+    }
+
+    const originalText = loginButton.innerHTML;
+    loginButton.innerHTML = '<div class="loading"></div> Entrando...';
+    loginButton.disabled = true;
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            const user = userCredential.user;
+            if (user) {
+                const userDocRef = db.collection('users').doc(user.uid);
+                userDocRef.update({
+                    totalLogins: firebase.firestore.FieldValue.increment(1),
+                    lastLoginAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).catch(error => {
+                    console.warn("Falha ao atualizar dados de login:", error);
+                    userDocRef.set({
+                        totalLogins: firebase.firestore.FieldValue.increment(1),
+                        lastLoginAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                });
+            }
+            window.location.href = '../index.html';
+        })
+        .catch(error => {
+            alert("Erro ao fazer login: " + mapFirebaseAuthError(error.code));
+        })
+        .finally(() => {
+            loginButton.innerHTML = originalText;
+            loginButton.disabled = false;
+        });
+}
+
+function mapFirebaseAuthError(errorCode) {
+    const errorMessages = {
+        'auth/invalid-email': 'Formato de e-mail inválido.',
+        'auth/user-disabled': 'Este usuário foi desabilitado.',
+        'auth/user-not-found': 'Usuário não encontrado.',
+        'auth/wrong-password': 'Senha incorreta.',
+        'auth/invalid-credential': 'Credenciais inválidas. Verifique e-mail e senha.',
+        'auth/too-many-requests': 'Muitas tentativas de login falharam. Por favor, tente novamente mais tarde.'
+    };
+    return errorMessages[errorCode] || 'Ocorreu um erro desconhecido. Tente novamente.';
+}
+
+// Observador de estado de autenticação
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log('Usuário já está logado, redirecionando para index.html');
+        window.location.href = '../index.html';
+    }
 });
