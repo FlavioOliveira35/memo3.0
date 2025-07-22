@@ -42,72 +42,90 @@ mover estes arquivos para uma pasta como `auth/`.
   <link rel="stylesheet" href="register.css">
 </head>
 <body>
-
-  <!-- ========================================
-       TELA DE REGISTRO
-  ======================================== -->
-  <div id="registerScreen" class="screen active">
-    <div class="auth-container">
-      <h2>
-        <i class="fas fa-user-plus"></i>
-        Criar Conta
-      </h2>
-      <!-- Formulário de registro com campos para coletar dados do usuário. -->
-      <input type="text" id="registerName" placeholder="👤 Nome Completo">
-      <input type="email" id="registerEmail" placeholder="📧 Seu e-mail">
-      <input type="password" id="registerPassword" placeholder="🔒 Crie uma senha">
-      <input type="text" id="registerCPF" placeholder="📄 CPF">
-      <input type="date" id="registerDOB" placeholder="🎂 Data de Nascimento">
-      <input type="text" id="registerCity" placeholder="🏙️ Cidade">
-      <input type="text" id="registerState" placeholder="🗺️ Estado">
-
-      <!-- Botão para submeter o formulário de registro. -->
-      <button id="registerButton">
-        <i class="fas fa-check"></i>
-        Cadastrar
-      </button>
-
-      <!-- Botão de chamada para ação (CTA) para o plano Premium. -->
-      <button type="button" id="openPremiumModalButton" class="auth-button premium-cta-button">
-        <i class="fas fa-star"></i> Seja Premium
-      </button>
-
-      <!-- Link para a página de login para usuários que já possuem conta. -->
-      <p>Já tem uma conta? <a href="../../auth/login.html">Faça login</a></p>
-    </div>
-  </div>
-
-  <!-- ========================================
-       MODAL DE UPGRADE PREMIUM
-  ======================================== -->
-  <!-- Cópia do modal de upgrade para consistência visual e funcional. -->
-  <div id="premiumUpgradeModalOverlay" class="modal-overlay" style="display: none;">
-    <div class="modal-container premium-upgrade-modal-container">
-      <div class="modal-header">
-        <span><i class="fas fa-rocket"></i> Desbloqueie Memórias Ilimitadas!</span>
-        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="modal-content premium-upgrade-modal-content">
-        <i class="fas fa-gem" style="font-size: 3.5em; color: #8b4513; text-align: center; display: block; margin-bottom: 20px;"></i>
-        <h3 style="text-align:center; font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:10px;">Você atingiu o limite de 20 memórias gratuitas!</h3>
-        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:15px; text-align:center; line-height:1.4;">
-          Com o plano Premium, você pode registrar quantas memórias quiser, sem limites! Organize todas as suas ideias, projetos e lembranças importantes.
-        </p>
-        <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:20px; text-align:center; font-size:1.1rem; font-weight:bold;">
-          Apenas R$4,99 por mês!
-        </p>
-        <div class="modal-button-group">
-          <button id="premiumPurchaseButton" class="add-btn premium-purchase-btn"><i class="fas fa-credit-card"></i> Quero ser Premium!</button>
-          <button id="closeModalButton" class="cancel-btn">Fechar</button>
+    <div class="background-overlay"></div>
+    <header class="main-header">
+        <div class="logo-container">
+            <span class="logo-text">RACA</span>
         </div>
-         <p id="premiumPurchaseInfo" style="font-family: 'Courier Prime', monospace; color: #8b4513; margin-top:15px; text-align:center; font-size:0.8rem; display:none;">
-          A integração com o sistema de pagamento estará disponível em breve!
-        </p>
-      </div>
-    </div>
-  </div>
+        <nav class="main-nav">
+            <a href="#">USM Metaverse</a>
+            <a href="#">NFT Market</a>
+            <a href="#">Governance</a>
+            <a href="#">RACA</a>
+        </nav>
+        <div class="user-actions">
+             <a href="../../auth/login.html" id="login-btn-link">
+                <button id="login-btn">Login</button>
+            </a>
+            <button id="register-btn">Cadastro</button>
+        </div>
+    </header>
 
-  <!-- Script com a lógica da página de registro -->
-  <script src="register.js"></script>
+    <main class="content-area">
+        <h1 class="main-title">
+            <span class="highlight">C</span>rie sua<br>
+            <span class="highlight">C</span>onta<br>
+        </h1>
+        <p class="main-subtitle">Comece sua jornada</p>
+        <p class="main-description">
+            Ao se cadastrar, você terá acesso a um universo de possibilidades para organizar suas memórias e ideias de forma ilimitada e segura.
+        </p>
+    </main>
+
+    <div id="register-modal" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <div class="auth-container">
+                <h2>
+                    <i class="fas fa-user-plus"></i>
+                    Criar Conta
+                </h2>
+                <div class="form-scroll-container">
+                    <input type="text" id="registerName" placeholder="👤 Nome Completo">
+                    <input type="email" id="registerEmail" placeholder="📧 Seu e-mail">
+                    <input type="password" id="registerPassword" placeholder="🔒 Crie uma senha">
+                    <input type="text" id="registerCPF" placeholder="📄 CPF">
+                    <input type="date" id="registerDOB" placeholder="🎂 Data de Nascimento">
+                    <input type="text" id="registerCity" placeholder="🏙️ Cidade">
+                    <input type="text" id="registerState" placeholder="🗺️ Estado">
+                </div>
+                <button id="registerButton">
+                    <i class="fas fa-check"></i>
+                    Cadastrar
+                </button>
+                <button type="button" id="openPremiumModalButton" class="auth-button premium-cta-button">
+                    <i class="fas fa-star"></i> Seja Premium
+                </button>
+                <p>Já tem uma conta? <a href="../../auth/login.html">Faça login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="premiumUpgradeModalOverlay" class="modal-overlay" style="display: none;">
+        <div class="modal-container premium-upgrade-modal-container">
+          <div class="modal-header">
+            <span><i class="fas fa-rocket"></i> Desbloqueie Memórias Ilimitadas!</span>
+            <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="modal-content premium-upgrade-modal-content">
+            <i class="fas fa-gem" style="font-size: 3.5em; color: #8b4513; text-align: center; display: block; margin-bottom: 20px;"></i>
+            <h3 style="text-align:center; font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:10px;">Você atingiu o limite de 20 memórias gratuitas!</h3>
+            <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:15px; text-align:center; line-height:1.4;">
+              Com o plano Premium, você pode registrar quantas memórias quiser, sem limites! Organize todas as suas ideias, projetos e lembranças importantes.
+            </p>
+            <p style="font-family: 'Courier Prime', monospace; color: #2c2416; margin-bottom:20px; text-align:center; font-size:1.1rem; font-weight:bold;">
+              Apenas R$4,99 por mês!
+            </p>
+            <div class="modal-button-group">
+              <button id="premiumPurchaseButton" class="add-btn premium-purchase-btn"><i class="fas fa-credit-card"></i> Quero ser Premium!</button>
+              <button id="closeModalButton" class="cancel-btn">Fechar</button>
+            </div>
+             <p id="premiumPurchaseInfo" style="font-family: 'Courier Prime', monospace; color: #8b4513; margin-top:15px; text-align:center; font-size:0.8rem; display:none;">
+              A integração com o sistema de pagamento estará disponível em breve!
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
 </body>
 </html>

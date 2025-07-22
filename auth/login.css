@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@900&display=swap');
 
 body, html {
     margin: 0;
@@ -16,6 +16,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .background-overlay {
@@ -44,7 +45,7 @@ body {
 .logo-text {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 2px;
 }
 
@@ -57,13 +58,17 @@ body {
     color: #fff;
     text-decoration: none;
     margin: 0 20px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .main-nav a:hover {
     color: #ff8c00;
+}
+
+#register-btn-link {
+    text-decoration: none;
 }
 
 .user-actions button {
@@ -77,6 +82,7 @@ body {
     font-weight: 500;
     border-radius: 5px;
     transition: all 0.3s ease;
+    font-size: 0.9rem;
 }
 
 .user-actions button#register-btn {
@@ -100,12 +106,12 @@ body {
     align-items: flex-start;
     height: 100vh;
     padding-left: 100px;
-    max-width: 700px;
+    max-width: 650px;
 }
 
 .main-title {
     font-family: 'Roboto', sans-serif;
-    font-size: 5.5rem;
+    font-size: 4.5rem;
     font-weight: 900;
     line-height: 1.1;
     text-transform: uppercase;
@@ -118,16 +124,16 @@ body {
 }
 
 .main-subtitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin: 10px 0 20px 0;
     text-transform: uppercase;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
 }
 
 .main-description {
     font-size: 1rem;
-    line-height: 1.7;
+    line-height: 1.6;
     max-width: 500px;
     margin-top: 20px;
     font-weight: 400;
@@ -161,7 +167,7 @@ body {
 .close-btn {
     color: #aaa;
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 20px;
     font-size: 28px;
     font-weight: bold;
@@ -173,70 +179,115 @@ body {
     color: #fff;
 }
 
-/* Styles for the original auth-container inside the modal */
-.modal .auth-container {
+.auth-container {
     background: transparent;
     border: none;
     box-shadow: none;
     padding: 0;
     color: #fff;
+    max-width: 100%;
 }
 
-.modal .auth-container h2 {
+.auth-container h2 {
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
 }
 
-.modal .auth-container input[type="email"],
-.modal .auth-container input[type="password"] {
-    background: #222;
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+    background: #2c2c2c;
     border: 1px solid #444;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
 }
 
-.modal .auth-container button {
+.auth-container button {
     font-family: 'Montserrat', sans-serif;
     text-transform: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 5px;
 }
 
-.modal .auth-container #login-action-btn {
+.auth-container #login-action-btn {
     background-color: #ff8c00;
     border: none;
 }
 
-.modal .auth-container #login-action-btn:hover {
+.auth-container #login-action-btn:hover {
     background-color: #e67e00;
 }
 
-.modal .auth-container .premium-cta-button {
+.auth-container .premium-cta-button {
     background: none;
     border: 1px solid #ff8c00;
     color: #ff8c00;
 }
 
-.modal .auth-container .premium-cta-button:hover {
+.auth-container .premium-cta-button:hover {
     background-color: #ff8c00;
     color: #fff;
 }
 
-.modal .auth-container .promo-message {
+.auth-container .promo-message {
     background: rgba(255, 255, 255, 0.1);
     border: 1px dashed #ff8c00;
     color: #eee;
+    padding: 10px;
+    font-size: 0.8rem;
+    margin-top: 15px;
 }
 
-.modal .auth-container p {
+.auth-container p {
     color: #aaa;
     font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    margin-top: 15px;
 }
 
-.modal .auth-container a {
+.auth-container a {
     color: #ff8c00;
     font-family: 'Montserrat', sans-serif;
 }
 
-#register-btn-link {
-    text-decoration: none;
+/* Modal de Upgrade Premium (para consistência) */
+.modal-overlay {
+    background-color: rgba(0,0,0,0.7);
+}
+
+.premium-upgrade-modal-container {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.premium-upgrade-modal-content h3,
+.premium-upgrade-modal-content p {
+    font-family: 'Montserrat', sans-serif !important;
+    color: #fff !important;
+}
+
+.premium-upgrade-modal-content .premium-purchase-btn {
+    background-color: #ff8c00 !important;
+}
+.premium-upgrade-modal-content .premium-purchase-btn:hover {
+    background-color: #e67e00 !important;
+}
+
+.premium-upgrade-modal-content .cancel-btn {
+    background: none !important;
+    border: 1px solid #fff !important;
+    color: #fff !important;
+}
+
+.premium-upgrade-modal-content .cancel-btn:hover {
+    background-color: #fff !important;
+    color: #000 !important;
 }

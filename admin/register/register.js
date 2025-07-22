@@ -1,22 +1,4 @@
-// ===================================================================================
-// Lógica da Página de Registro
-// ===================================================================================
-// Este script gerencia o formulário e o processo de registro de um novo usuário.
-// Assim como login.js, este arquivo é autônomo para funcionar independentemente.
-//
-// NOTA DE ARQUITETURA:
-// O nome da pasta ('admin/register') sugere que esta página seria para registrar
-// administradores, mas a lógica implementada (`status: 'free'`) é para um
-// registro de usuário padrão. Se o objetivo for um registro público, seria
-// melhor mover este arquivo para uma pasta como `auth/register/`. Se for para
-// administradores, a lógica deveria atribuir um status de 'admin'.
-// ===================================================================================
-
-
-// -----------------------------------------------------------------------------------
-// Seção: Configuração do Firebase e Elementos da UI
-// -----------------------------------------------------------------------------------
-// Configuração do Firebase (duplicada para autonomia da página).
+// Manter a configuração e inicialização do Firebase no topo.
 const firebaseConfig = {
   apiKey: "AIzaSyCAjJGwKaYi6cJNrmGcdnKgO-jHYGivv0E",
   authDomain: "smemoria-bfaed.firebaseapp.com",
@@ -26,12 +8,75 @@ const firebaseConfig = {
   appId: "1:728874899156:web:81744aa120a926ff5ccd41"
 };
 
-// Inicialização do Firebase.
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Mapeamento dos elementos do formulário de registro.
+// O código principal é executado após o DOM carregar.
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Lógica do Modal de Cadastro ---
+    // O modal já é visível por padrão, mas podemos adicionar lógica para fechá-lo se necessário.
+    const registerModal = document.getElementById('register-modal');
+    const registerBtn = document.getElementById('register-btn'); // O botão no header
+
+    // Se houver um botão para abrir o modal de cadastro (caso ele comece fechado)
+    if (registerBtn) {
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Previne o comportamento padrão se for um link
+            if(registerModal) registerModal.style.display = 'flex';
+        });
+    }
+
+    // --- Lógica do Modal Premium (Mantida) ---
+    const premiumUpgradeModalOverlay = document.getElementById('premiumUpgradeModalOverlay');
+    const premiumPurchaseInfo = document.getElementById('premiumPurchaseInfo');
+    const openPremiumModalButton = document.getElementById('openPremiumModalButton');
+
+    if(openPremiumModalButton) {
+        openPremiumModalButton.addEventListener('click', openPremiumUpgradeModal);
+    }
+
+    function openPremiumUpgradeModal() {
+      if (premiumUpgradeModalOverlay) {
+        premiumUpgradeModalOverlay.style.display = 'flex';
+        if (premiumPurchaseInfo) premiumPurchaseInfo.style.display = 'none';
+      }
+    }
+
+    function closePremiumUpgradeModal() {
+      if (premiumUpgradeModalOverlay) {
+        premiumUpgradeModalOverlay.style.display = 'none';
+      }
+    }
+
+    if (premiumUpgradeModalOverlay) {
+      const closeBtn = premiumUpgradeModalOverlay.querySelector('.modal-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closePremiumUpgradeModal);
+      }
+      const cancelBtnGroup = document.getElementById('closeModalButton');
+      if (cancelBtnGroup) {
+        cancelBtnGroup.addEventListener('click', closePremiumUpgradeModal);
+      }
+      const premiumPurchaseButton = document.getElementById('premiumPurchaseButton');
+      if (premiumPurchaseButton) {
+        premiumPurchaseButton.addEventListener('click', handlePremiumPurchase);
+      }
+    }
+
+    function handlePremiumPurchase() {
+      if (premiumPurchaseInfo) {
+        premiumPurchaseInfo.textContent = 'Agradecemos o seu interesse! A funcionalidade de pagamento será implementada em breve.';
+        premiumPurchaseInfo.style.display = 'block';
+      }
+    }
+});
+
+
+// --- Funções de Autenticação ---
 const registerNameInput = document.getElementById('registerName');
 const registerEmailInput = document.getElementById('registerEmail');
 const registerPasswordInput = document.getElementById('registerPassword');
@@ -40,59 +85,9 @@ const registerDOBInput = document.getElementById('registerDOB');
 const registerCityInput = document.getElementById('registerCity');
 const registerStateInput = document.getElementById('registerState');
 const registerButton = document.getElementById('registerButton');
-const openPremiumModalButton = document.getElementById('openPremiumModalButton');
 
-// Adiciona os listeners de clique aos botões principais.
-registerButton.addEventListener('click', register);
-openPremiumModalButton.addEventListener('click', openPremiumUpgradeModal);
-
-
-// -----------------------------------------------------------------------------------
-// Seção: Lógica do Modal Premium (Duplicada)
-// -----------------------------------------------------------------------------------
-// Esta seção é uma cópia da lógica do modal encontrada em outros scripts.
-const premiumUpgradeModalOverlay = document.getElementById('premiumUpgradeModalOverlay');
-const premiumPurchaseInfo = document.getElementById('premiumPurchaseInfo');
-
-function openPremiumUpgradeModal() {
-  if (premiumUpgradeModalOverlay) {
-    premiumUpgradeModalOverlay.style.display = 'flex';
-    if (premiumPurchaseInfo) premiumPurchaseInfo.style.display = 'none';
-  }
-}
-
-function closePremiumUpgradeModal() {
-  if (premiumUpgradeModalOverlay) {
-    premiumUpgradeModalOverlay.style.display = 'none';
-  }
-}
-
-if (premiumUpgradeModalOverlay) {
-  premiumUpgradeModalOverlay.addEventListener('click', function(event) {
-    if (event.target === premiumUpgradeModalOverlay) {
-      closePremiumUpgradeModal();
-    }
-  });
-  const closeBtn = premiumUpgradeModalOverlay.querySelector('.modal-close-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closePremiumUpgradeModal);
-  }
-  const cancelBtnGroup = document.getElementById('closeModalButton');
-  if (cancelBtnGroup) {
-    cancelBtnGroup.addEventListener('click', closePremiumUpgradeModal);
-  }
-  const premiumPurchaseButton = document.getElementById('premiumPurchaseButton');
-  if (premiumPurchaseButton) {
-    premiumPurchaseButton.addEventListener('click', handlePremiumPurchase);
-  }
-}
-
-function handlePremiumPurchase() {
-  console.log('Botão "Quero ser Premium!" clicado na página de registro.');
-  if (premiumPurchaseInfo) {
-    premiumPurchaseInfo.textContent = 'Agradecemos o seu interesse! A funcionalidade de pagamento será implementada em breve.';
-    premiumPurchaseInfo.style.display = 'block';
-  }
+if (registerButton) {
+    registerButton.addEventListener('click', register);
 }
 
 
