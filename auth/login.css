@@ -105,11 +105,12 @@ body {
 
 .main-title {
     font-family: 'Roboto', sans-serif;
-    font-size: 6rem;
+    font-size: 5.5rem;
     font-weight: 900;
-    line-height: 1;
+    line-height: 1.1;
     text-transform: uppercase;
     margin: 0;
+    letter-spacing: 1px;
 }
 
 .main-title .highlight {
@@ -117,18 +118,19 @@ body {
 }
 
 .main-subtitle {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin: 10px 0;
+    margin: 10px 0 20px 0;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
 }
 
 .main-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 550px;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 500px;
     margin-top: 20px;
+    font-weight: 400;
 }
 
 /* Modal Styles */
