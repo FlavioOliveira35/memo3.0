@@ -53,7 +53,7 @@ body {
     top: 0;
     left: 0;
     z-index: 10;
-    transition: background-color var(--transition-speed) ease, padding var(--transition-speed) ease;
+    transition: background-color 0.8s ease, padding 0.8s ease;
 }
 
 .logo-img {

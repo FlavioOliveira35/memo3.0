@@ -3,18 +3,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.main-header');
 
     const animateTitle = () => {
-        const text = title.innerHTML;
-        title.innerHTML = '';
-        let i = 0;
+        const originalHTML = title.innerHTML;
+        const textNodes = [];
 
-        const typing = () => {
-            if (i < text.length) {
-                title.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typing, 100);
+        // Função para extrair nós de texto e seus pais
+        const extractTextNodes = (element) => {
+            element.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0) {
+                    textNodes.push({
+                        text: node.textContent,
+                        parent: node.parentNode
+                    });
+                    node.textContent = '';
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    extractTextNodes(node);
+                }
+            });
+        };
+
+        extractTextNodes(title);
+
+        let nodeIndex = 0;
+        let textIndex = 0;
+
+        const type = () => {
+            if (nodeIndex < textNodes.length) {
+                const currentNode = textNodes[nodeIndex];
+                if (textIndex < currentNode.text.length) {
+                    currentNode.parent.innerHTML += currentNode.text[textIndex];
+                    textIndex++;
+                    setTimeout(type, 50); // Velocidade da digitação
+                } else {
+                    nodeIndex++;
+                    textIndex = 0;
+                    type();
+                }
             }
         };
-        typing();
+
+        type();
     };
 
     const handleHeaderHover = () => {
