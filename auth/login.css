@@ -12,7 +12,7 @@ body, html {
 }
 
 body {
-    background-image: url('https://source.unsplash.com/random/1920x1080?metaverse,galaxy,stars');
+    background-image: url('imglogin/background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -40,6 +40,10 @@ body {
     top: 0;
     left: 0;
     z-index: 10;
+}
+
+.logo-img {
+    height: 40px;
 }
 
 .logo-text {
@@ -97,6 +101,15 @@ body {
 .user-actions button#register-btn:hover {
     background-color: #ff8c00;
     color: #fff;
+}
+
+.main-header:hover {
+    background-color: white;
+}
+
+.main-header:hover .logo-text,
+.main-header:hover .main-nav a {
+    color: #000;
 }
 
 .content-area {
@@ -290,4 +303,32 @@ body {
 .premium-upgrade-modal-content .cancel-btn:hover {
     background-color: #fff !important;
     color: #000 !important;
+}
+
+/* Styles for Register Modal */
+.auth-container .form-scroll-container {
+    max-height: 50vh; /* Adjust as needed */
+    overflow-y: auto;
+    padding-right: 15px; /* For scrollbar */
+}
+
+.auth-container input {
+    background: #2c2c2c;
+    border: 1px solid #444;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-container #registerButton {
+    background-color: #ff8c00;
+    border: none;
+}
+
+.auth-container #registerButton:hover {
+    background-color: #e67e00;
 }
