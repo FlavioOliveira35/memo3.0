@@ -108,55 +108,40 @@ body {
 }
 
 .user-actions button {
-    background: transparent;
-    border: 1px solid var(--text-color);
+    background: none;
+    border: none;
     color: var(--text-color);
-    padding: 10px 20px;
-    margin-left: 15px;
+    padding: 0;
+    margin-left: 20px;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    border-radius: 25px;
-    transition: all var(--transition-speed) ease;
     font-size: 0.9rem;
+    transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
     position: relative;
-    overflow: hidden;
 }
 
-.user-actions button:before {
+.user-actions button:after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
     width: 0;
-    height: 0;
-    background: var(--primary-color);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width var(--transition-speed) ease, height var(--transition-speed) ease;
-    z-index: -1;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: var(--secondary-color);
+    transition: width var(--transition-speed) ease;
 }
 
-.user-actions button:hover:before {
-    width: 200%;
-    height: 200%;
-}
-
-.user-actions button#register-btn {
-    border-color: var(--primary-color);
-    background-color: var(--primary-color);
+.user-actions button:hover:after {
+    width: 100%;
+    left: 0;
+    background: var(--secondary-color);
 }
 
 .user-actions button:hover {
-    background-color: transparent;
-    color: var(--white);
-    border-color: var(--primary-hover-color);
-}
-
-.user-actions button#register-btn:hover {
-    background-color: var(--primary-hover-color);
-    border-color: var(--primary-hover-color);
-    color: var(--white);
+    color: var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-color);
 }
 
 .main-header:hover {
@@ -184,6 +169,7 @@ body {
     align-items: flex-start;
     height: 100vh;
     padding-left: 100px;
+    padding-top: 100px; /* Adicionado para evitar sobreposição */
     max-width: 650px;
 }
 
