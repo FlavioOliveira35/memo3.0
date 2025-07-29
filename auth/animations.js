@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (charIndex < current.text.length) {
                     current.element.textContent += current.text[charIndex];
                     charIndex++;
-                    setTimeout(type, 35); // Velocidade da digitação
+                    setTimeout(type, 70); // Velocidade da digitação mais lenta
                 } else {
                     elementIndex++;
                     charIndex = 0;
