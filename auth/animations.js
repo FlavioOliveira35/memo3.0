@@ -3,45 +3,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.main-header');
 
     const animateTitle = () => {
-        const originalHTML = title.innerHTML;
-        const textNodes = [];
+        const words = title.innerHTML.split(/(<br>)/);
+        title.innerHTML = '';
 
-        // Função para extrair nós de texto e seus pais
-        const extractTextNodes = (element) => {
-            element.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0) {
-                    textNodes.push({
-                        text: node.textContent,
-                        parent: node.parentNode
-                    });
-                    node.textContent = '';
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    extractTextNodes(node);
+        let wordIndex = 0;
+
+        const typeWord = () => {
+            if (wordIndex < words.length) {
+                let word = words[wordIndex];
+                if (word === '<br>') {
+                    title.innerHTML += word;
+                    wordIndex++;
+                    setTimeout(typeWord, 100);
+                    return;
                 }
-            });
-        };
 
-        extractTextNodes(title);
-
-        let nodeIndex = 0;
-        let textIndex = 0;
-
-        const type = () => {
-            if (nodeIndex < textNodes.length) {
-                const currentNode = textNodes[nodeIndex];
-                if (textIndex < currentNode.text.length) {
-                    currentNode.parent.innerHTML += currentNode.text[textIndex];
-                    textIndex++;
-                    setTimeout(type, 50); // Velocidade da digitação
-                } else {
-                    nodeIndex++;
-                    textIndex = 0;
-                    type();
-                }
+                let i = 0;
+                const typeChar = () => {
+                    if (i < word.length) {
+                        title.innerHTML += word[i];
+                        i++;
+                        setTimeout(typeChar, 50);
+                    } else {
+                        wordIndex++;
+                        setTimeout(typeWord, 100);
+                    }
+                };
+                typeChar();
             }
         };
 
-        type();
+        typeWord();
     };
 
     const handleHeaderHover = () => {
